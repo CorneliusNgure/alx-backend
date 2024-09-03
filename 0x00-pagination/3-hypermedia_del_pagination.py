@@ -34,12 +34,10 @@ class Server:
         return self.__indexed_dataset
 
     def get_hyper_index(
-            self, index: Optional[int] = None, page_size: int = 10) -> Dict:
+            self, index: Optional[int] = 0, page_size: int = 10) -> Dict:
         """
         Return dictionary with pagination information resilient to deletions.
         """
-        if index is None:
-            index = 0
 
         # checking that index is within a valid range
         assert isinstance(index, int) and 0 <= index < len(
