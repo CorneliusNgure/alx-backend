@@ -38,7 +38,10 @@ class Server:
         """
         Return dictionary with pagination information resilient to deletions.
         """
-        # Ensure index is within a valid range
+        if index is None:
+            index = 0
+
+        # checking that index is within a valid range
         assert isinstance(index, int) and 0 <= index < len(
                 self.indexed_dataset())
 
