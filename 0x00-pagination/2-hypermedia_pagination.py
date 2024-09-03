@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+"""Server class that defines various methods to paginate a CSV file"""
+
 from typing import Tuple, List, Dict, Any
 import csv
 import math
