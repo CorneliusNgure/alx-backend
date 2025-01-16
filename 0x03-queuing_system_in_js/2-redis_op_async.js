@@ -1,4 +1,5 @@
 import redis from 'redis';
+import { promisify } from 'util';
 
 // Create a Redis client
 const client = redis.createClient();
@@ -18,18 +19,22 @@ function setNewSchool(schoolName, value) {
     client.set(schoolName, value, redis.print); // Use redis.print for confirmation
 }
 
-// Function to display the value of a school from Redis
-function displaySchoolValue(schoolName) {
-    client.get(schoolName, (err, value) => {
-        if (err) {
-            console.error('Error getting school value:', err.message);
-        } else {
-            console.log(`${value}`);
-        }
-    });
+// Promisify the get method
+const getAsync = promisify(client.get).bind(client);
+
+// Function to display the value of a school from Redis using async/await
+async function displaySchoolValue(schoolName) {
+    try {
+        const value = await getAsync(schoolName);
+        console.log(`${value}`);
+    } catch (err) {
+        console.error('Error getting school value:', err.message);
+    }
 }
 
 // Call functions
-displaySchoolValue('ALX');
-setNewSchool('ALXSanFrancisco', '100');
-displaySchoolValue('ALXSanFrancisco');
+(async () => {
+    await displaySchoolValue('ALX');
+    setNewSchool('ALXSanFrancisco', '100');
+    await displaySchoolValue('ALXSanFrancisco');
+})();
