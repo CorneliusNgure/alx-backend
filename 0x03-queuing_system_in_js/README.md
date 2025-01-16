@@ -1,5 +1,7 @@
 # Queuing System in JS
 
+---
+
 ## Required Files for the Project
 ### package.json:
 ```json
@@ -56,6 +58,8 @@
 
 Don't forget to run `npm install` when you have the `package.json`
 
+---
+
 ## Tasks:
 ### 0.Install a redis instance
 
@@ -98,6 +102,8 @@ Copy the `dump.rdb` from the `redis-5.0.7` directory into the root of the Queuin
 **Requirements:**
 
     - Running `get ALX` in the client, should return `School`
+
+---
 
 ### 1. Node Redis Client
 
@@ -152,6 +158,8 @@ Redis client connected to the server
 bob@dylan:~$
 ```
 
+---
+
 ### 3. Node Redis client and async operations
 
 In a file `2-redis_op_async.js`, let’s copy the code from the previous exercise (`1-redis_op.js`)
@@ -177,6 +185,64 @@ Reply: OK
 100
 ^C
 
+bob@dylan:~$
+```
+
+---
+
+### 4. Node Redis client and advanced operations
+
+In a file named `4-redis_advanced_op.js`, let’s use the client to store a hash value
+
+**Create Hash:**
+
+Using `hset`, let’s store the following:
+- The key of the hash should be `ALX`
+- It should have a value for:
+    - Portland=50
+    - Seattle=80
+    - New York=20
+    - Bogota=20
+    - Cali=40
+    - Paris=2
+
+Make sure you use `redis.print` for each `hset`
+
+**Display Hash:**
+
+Using `hgetall`, display the object stored in Redis. It should return the following:
+
+**Requirements:**
+
+- Use callbacks for any of the operation, we will look at async operations later
+
+```bash
+bob@dylan:~$ npm run dev 4-redis_advanced_op.js
+
+> queuing_system_in_js@1.0.0 dev /root
+> nodemon --exec babel-node --presets @babel/preset-env "4-redis_advanced_op.js"
+
+[nodemon] 2.0.4
+[nodemon] to restart at any time, enter `rs`
+[nodemon] watching path(s): *.*
+[nodemon] watching extensions: js,mjs,json
+[nodemon] starting `babel-node --presets @babel/preset-env 4-redis_advanced_op.js`
+Redis client connected to the server
+Reply: 1
+Reply: 1
+Reply: 1
+Reply: 1
+Reply: 1
+Reply: 1
+{
+  Portland: '50',
+  Seattle: '80',
+  'New York': '20',
+  Bogota: '20',
+  Cali: '40',
+  Paris: '2'
+}
+^C
 bob@dylan:~$
 ```
 
