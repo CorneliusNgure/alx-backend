@@ -593,3 +593,44 @@ Notification job #49 completed
 ```
 
 ---
+
+### 10. Writing the job creation function
+
+In a file named `8-job.js`, create a function named `createPushNotificationsJobs`:
+- It takes into argument `jobs` (array of objects), and `queu`e (`Kue` queue)
+- If `jobs` is not an array, it should throw an `Error` with message: `Jobs is not an array`
+- For each job in jobs, create a job in the queue `push_notification_code_3`
+- When a job is created, it should log to the console `Notification job created: JOB_ID`
+- When a job is complete, it should log to the console `Notification job JOB_ID completed`
+- When a job is failed, it should log to the console `Notification job JOB_ID failed: ERROR`
+- When a job is making progress, it should log to the console `Notification job JOB_ID PERCENT% complete`
+
+```bash
+bob@dylan:~$ cat 8-job-main.js
+import kue from 'kue';
+
+import createPushNotificationsJobs from './8-job.js';
+
+const queue = kue.createQueue();
+
+const list = [
+    {
+        phoneNumber: '4153518780',
+    message: 'This is the code 1234 to verify your account'
+    }
+];
+createPushNotificationsJobs(list, queue);
+
+bob@dylan:~$
+bob@dylan:~$ npm run dev 8-job-main.js
+
+> queuing_system_in_js@1.0.0 dev /root
+> nodemon --exec babel-node --presets @babel/preset-env "8-job-main.js"
+
+[nodemon] 2.0.4
+[nodemon] to restart at any time, enter `rs`
+[nodemon] watching path(s): *.*
+[nodemon] watching extensions: js,mjs,json
+[nodemon] starting `babel-node --presets @babel/preset-env 8-job-main.js`
+Notification job created: 51
+```
